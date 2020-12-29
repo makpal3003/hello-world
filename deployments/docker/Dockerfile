@@ -1,12 +1,21 @@
-## Build the image based python3 
-FROM python:3
-## Copy all the packages
-COPY . /app
-## Change the default folder 
+## Based on python3 container
+FROM python:3 
+
+
+## Copy everything in current folder to folder /app inside container
+COPY . /app 
+
+
+## Change current directory to /app
 WORKDIR /app
+
+
+## Publish the 5000 port to world 
+EXPOSE 5000
+
+
 ## Install all packages
-RUN pip install -r /app/requirements.txt
-## Default port is 5000
-EXPOSE 5000 
-## When contianer is stared python app.py 
-CMD ["/bin/sh", "-c", "python /app/app.py"]
+RUN pip install -r requirements.txt
+
+## Making sure application stared when container is stared 
+CMD [ "/bin/sh", "-c", "python /app/app.py" ]
